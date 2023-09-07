@@ -1,5 +1,7 @@
 var argv = require('minimist')(process.argv.slice(2));
 var express = require('express');
+
+var argv = require('minimist')(process.argv.slice(2));
 var app = express();
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to path ' + request.path);
