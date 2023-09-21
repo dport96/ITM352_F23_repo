@@ -10,8 +10,8 @@
     <link href="products-style.css" rel="stylesheet">
     <script>
         const store_name = 'Dan Port';
-        let hits = 1;
-        spins = 2;
+        let hits = 0;
+        let spins = 0;
     </script>
 </head>
 
@@ -20,6 +20,8 @@
     <header>
         <h1><script>document.write(store_name);</script>'s Used Smart Phone Store</h1>
     </header>
+    <p style="text-align: center;">Hits:<span id="hits_span">none</span> Spins:<span id="spins_span">none</span></p>
+    <p style="text-align: center;">Hit/Spin:<span id="hit_spin_span">0</span></p>
     <div>
         <aside>
             <div style="font-size:4rem;text-align:center;font-weight: bold;font-style: italic; color: white">
@@ -29,7 +31,15 @@
         </aside>
 
         <main>
-            <section class="item" id="HTC">
+            <section class="item" id="HTC"
+            onclick="
+                hits_span.innerHTML = ++hits;
+                hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);"
+            onmouseover="
+                spins_span.innerHTML = ++spins;
+                hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);
+                "
+            >
                 <h2>HTC</h2>
                 <p>$40.00</p>
                 <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC Phones">

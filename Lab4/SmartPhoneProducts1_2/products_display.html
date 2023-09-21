@@ -11,14 +11,15 @@
     <script>
         const store_name = 'Dan Port';
         let hits = 1;
-        spins = 2;
+        let spins = 2;
     </script>
 </head>
 
 <body>
-    
+
     <header>
         <h1><script>document.write(store_name);</script>'s Used Smart Phone Store</h1>
+        <p style="text-align: center;">Hits:0 Spins:0</p>
     </header>
     <div>
         <aside>
@@ -29,7 +30,10 @@
         </aside>
 
         <main>
-            <section class="item" id="HTC">
+            <section class="item" id="HTC"
+            onclick="hits++;"
+            onmouseover="spins++;"
+            >
                 <h2>HTC</h2>
                 <p>$40.00</p>
                 <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC Phones">
