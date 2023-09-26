@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Smart Phone Store</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Cherry+Swash|Raleway" rel="stylesheet">
+
+    <link href="products-style.css" rel="stylesheet">
+    <script>
+        const store_name = 'Dan Port';
+        let hits = 0;
+        let spins = 0;
+        let over_half = false;
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1>
+            <script>document.write(store_name);</script>'s Used Smart Phone Store
+        </h1>
+    </header>
+    <p style="text-align: center;">
+        Hits:<span id="hits_span">none</span> 
+        Spins:<span id="spins_span">none</span>
+        You win:<span id="win_span">pending...</span>
+    </p>
+    <p style="text-align: center;">Hit/Spin:<span id="hit_spin_span">0</span></p>
+    <div>
+        <aside>
+            <div style="font-size:4rem;text-align:center;font-weight: bold;font-style: italic; color: white">
+                We sell from
+                around the globe!
+            </div>
+        </aside>
+
+        <main>
+            <section class="item" id="HTC" 
+            onclick="
+            if(this.className === 'item rotate') {
+                this.className = 'item';
+                hits_span.innerHTML = ++hits;
+            } else {
+                this.className = 'item rotate'
+            }
+                
+                hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);
+                over_half ||= (spins < 2*hits) && (hits < spins);
+                win_span.innerHTML = over_half;" 
+            onmouseover="
+                if(this.className === 'item') {
+                    this.className = 'item rotate';
+                    spins_span.innerHTML = ++spins;
+                }
+
+                hit_spin_span.innerHTML = (hits_span.innerHTML/spins_span.innerHTML).toFixed(2);
+                over_half ||= (spins < 2*hits) && (hits < spins);
+                win_span.innerHTML = over_half;" 
+                ">
+                <h2>HTC</h2>
+                <p>$40.00</p>
+                <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC Phones">
+            </section>
+
+            <section class="item">
+                <h2>Apple</h2>
+                <p>$75.00</p>
+                <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg">
+            </section>
+
+            <section class="item">
+                <h2>Nokia</h2>
+                <p>$35.00</p>
+                <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg">
+            </section>
+
+            <section class="item">
+                <h2>Samsung</h2>
+                <p>$45.00</p>
+                <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg">
+            </section>
+
+            <section class="item">
+                <h2>Blackberry</td>
+                </h2>
+                <p>$10.00</p>
+                <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg">
+            </section>
+
+        </main>
+    </div>
+    <footer>
+        <h1>
+            Your One Stop For Used Phones
+        </h1>
+    </footer>
+</body>
+
+</html>
