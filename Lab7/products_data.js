@@ -14,8 +14,7 @@ name4 = "Samsung";
 price4 = 45.00;
 image4 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg";
 
-name5 = "Blackberry";
-price5 = 10.00;
-image5 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg";
+
+
 
 console.log("Product variables loaded...", name1, name2);

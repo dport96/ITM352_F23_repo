@@ -1,8 +1,9 @@
 require("./products_data.js");
 
-let num_products = 5;
 
-for(let product_num = 0; product_num < num_products, product_num++) {
+for(let product_num = 1; eval("typeof name"+product_num) != 'undefined'; product_num++) {
+    // document.write(`<tr><td>${product_num}</td><td>${eval('name' + (product_num)}</td></tr>`);
+    /*
     if(product_num > num_products/2) {
         console.log('Don’t ask for anything else!');
         process.exit(1);
@@ -11,7 +12,8 @@ for(let product_num = 0; product_num < num_products, product_num++) {
         console.log(`${eval('name' + (product_num) )} is sold out!`);
         continue;
     }
-    console.log(`${product_num}. ${eval('name' + (product_num) )}`);
+    */
+    console.log(`<tr><td>${product_num}</td><td>${eval('name' + (product_num))}</td></tr>`);
 
 
 }
