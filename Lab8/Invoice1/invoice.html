@@ -6,43 +6,45 @@
     <title>Invoice1</title>
     <script>
     /*Invoice*/
+    // define quantiues array
+    let product_quantities = [1,2,3,4,5];
+
     //Product Data
         // Product 1
         /*
         let item1 = 'Gillette Sensor 3 Razor';
-        let quantity1 = 2;
+        
         let price1 = 1.23;
         */
         let product1 = {
           "item": 'Gillette Sensor 3 Razor',  
-          "quantity" : 2,
-          "price" : 1.23,
-          "SKU#" : 1234
+          "price" : 1.23
         }
+        product1['SKU#'] = 1234;
         product1["quantity"] = 0;
 
         // Product 2
         let item2 = 'Barbasol Shaving Cream';
-        let quantity2 = 1;
+        
         let price2 = 2.64;
         // Product 3
         let item3 = 'Nautica Cologne';
-        let quantity3 = 1;
+        
         let price3 = 6.17;
         // Product 4
         let item4 = 'Rubbing Alcohol';
-        let quantity4 = 3;
+        
         let price4 = 0.98;
         // Product 5
         let item5 = 'Colgate Classic Toothbrush	';
-        let quantity5 = 12;
+        
         let price5 = 1.89;
         // Compute extended prices
-        let extended_price1 = product1.quantity * product1.price;
-        let extended_price2 = quantity2 * price2;
-        let extended_price3 = quantity3 * price3;
-        let extended_price4 = quantity4 * price4;
-        let extended_price5 = quantity5 * price5;
+        let extended_price1 = product_quantities[0] * product1.price;
+        let extended_price2 = product_quantities[1] * price2;
+        let extended_price3 = product_quantities[2] * price3;
+        let extended_price4 = product_quantities[3] * price4;
+        let extended_price5 = product_quantities[4] * price5;
         //Subtotal
         let subtotal = extended_price1 + extended_price2 + extended_price3 + extended_price4 + extended_price5;
         //Tax
@@ -63,31 +65,31 @@
             </tr>
             <tr>
               <td width="43%"><script>document.write(product1.item)</script></td>
-              <td align="center" width="11%"><script>document.write(product1.quantity)</script></td>
+              <td align="center" width="11%"><script>document.write(product_quantities[0])</script></td>
               <td width="13%"><script>document.write('$'+product1.price)</script></td>
               <td width="54%"><script>document.write('$'+extended_price1)</script></td>
             </tr>
             <tr>
               <td width="43%"><script>document.write(item2)</script></td>
-              <td align="center" width="11%"><script>document.write(quantity2)</script></td>
+              <td align="center" width="11%"><script>document.write(product_quantities[1])</script></td>
               <td width="13%"><script>document.write('$'+price2)</script></td>
               <td width="54%"><script>document.write('$'+extended_price2)</script></td>
             </tr>
             <tr>
               <td width="43%"><script>document.write(item3)</script></td>
-              <td align="center" width="11%"><script>document.write(quantity3)</script></td>
+              <td align="center" width="11%"><script>document.write(product_quantities[2])</script></td>
               <td width="13%"><script>document.write('$'+price3)</script></td>
               <td width="54%"><script>document.write('$'+extended_price3)</script></td>
             </tr>
             <tr>
               <td width="43%"><script>document.write(item4)</script></td>
-              <td align="center" width="11%"><script>document.write(quantity4)</script></td>
+              <td align="center" width="11%"><script>document.write(product_quantities[3])</script></td>
               <td width="13%"><script>document.write('$'+price4)</script></td>
               <td width="54%"><script>document.write('$'+extended_price4)</script></td>
             </tr>
             <tr>
               <td width="43%"><script>document.write(item5)</script></td>
-              <td align="center" width="11%"><script>document.write(quantity5)</script></td>
+              <td align="center" width="11%"><script>document.write(product_quantities[4])</script></td>
               <td width="13%"><script>document.write('$'+price5)</script></td>
               <td width="54%"><script>document.write('$'+extended_price5)</script></td>
             </tr>

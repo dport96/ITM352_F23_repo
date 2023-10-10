@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let product_quantities = [1,2,3,4,5];
+    </script>
+    <table style="border: 1px solid black;text-align: center;">
+        <tr style="border: 1px solid black;"><th style="border: 1px solid black;">Product #</th><th>Quantity</th></tr>
+        <script>
+            for(let i in product_quantities) { 
+                document.write(`<tr style="border: 1px solid black;"><td style="border: 1px solid black;">${Number(i) + 1}</td><td>${product_quantities[i]}</td></tr>`);
+            }
+        </script>
+        
+        
+        </table>
+</body>
+</html>
