@@ -1,0 +1,60 @@
+
+   
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        tr:hover {
+            background-color: yellow;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table style="border: 1px solid black;text-align: center;"  onclick="
+        new_row = this.appendChild(document.createElement('tr'));
+        for (i=0; i < this.rows[0].cells.length; i++) {
+            new_cell = this.appendChild(document.createElement('td'));
+            new_cell.innerHTML = 'xxx';
+        }
+        ">
+        <tr>
+            <th>Product #</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Ext Price</th>
+        </tr>
+
+        <script>
+            var product_quantities = [2, 1, 1, 3, 12];
+            // array of all products
+            // corresponds to product_quantities array
+            // product_quantities[i] is the quantity for products[i]
+            products = [
+                { 'name': 'small gumball', 'price': 0.02 },
+                { 'name': 'medium gumball', 'price': 0.05 },
+                { 'name': 'large gumball', 'price': 0.07 },
+                { 'name': 'small jawbreaker', 'price': 0.06 },
+                { 'name': 'large jawbreaker', 'price': 0.10 }
+            ];
+
+            // products[5] = { 'name': 'xlarge jawbreaker', 'price': 0.25 };
+
+            for (var i = 0; i < product_quantities.length; i++) {
+                document.write(`<tr ><td>${i + 1}</td><td>${products[i].name}</td><td>${products[i].price}</td><td>${product_quantities[i]}</td><td>${(product_quantities[i] * products[i].price).toFixed(2)}</td></tr>`);
+            }
+        </script>
+    </table>
+    <input type="button" value="Delete Last Row" onclick="
+        tbody = document.getElementsByTagName('table')[0];
+        tbody.deleteRow(tbody.rows.length -1);
+    ">
+</body>
+
+</html>
