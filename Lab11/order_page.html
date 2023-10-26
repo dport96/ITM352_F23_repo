@@ -1,6 +1,6 @@
 <script>
     function checkQuantityTextbox() {
-        let qty = quantity_textbox.value;
+        let qty = quantity_form["quantity_textbox"].value;
         let errors = isNonNegInt(qty, true);
         qty_textbox_message.innerHTML = errors.join(', ');
     }
@@ -20,14 +20,28 @@
 
     function displayPurchase() {
         let qty = quantity_textbox.value;
-        if(isNonNegInt(qty, false === true)) {
+        if (isNonNegInt(qty, false === true)) {
             document.write(`Thank for you for ordering ${quantity_textbox.value} things!`);
         }
     }
-</script>
 
-<label>quantity desired:</label>
-<input id="quantity_textbox" type="text" onkeyup="checkQuantityTextbox();">
-<span id='qty_textbox_message'>Enter a quantity</span>
-<br>
-<input type="button" value="Purchase" onclick="displayPurchase();">
+    let params = (new URL(document.location)).searchParams;
+    if (params.has('quantity_textbox')) {
+        let qty = params.get('quantity_textbox');
+        if (isNonNegInt(qty, false)=== true) {
+            document.write(`Thank you for purchasing ${qty} things!`);
+            window.stop();
+        } else {
+            document.write(`Invalid quantity, try again.`);
+        }
+        
+    }
+
+</script>
+<form name="quantity_form" action="" method="GET">
+    <label>quantity desired:</label>
+    <input name="quantity_textbox" type="text" onkeyup="checkQuantityTextbox();">
+    <span id='qty_textbox_message'>Enter a quantity</span>
+    <br>
+    <input type="submit" value="Purchase">
+</form>
