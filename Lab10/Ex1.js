@@ -1,0 +1,12 @@
+year = 1966;
+day = 14;
+month = 5;
+step1 = 66;
+step2 = parseInt(step1/4);
+step3 = step2 + step1;
+step4 =1; 
+step6 = step4 + step3;
+step7 = step6 + day;
+step8 = step7;
+final = step8 % 7;
+console.log(final);
