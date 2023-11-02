@@ -1,0 +1,18 @@
+<script>
+    function checkLogin() {
+        passwords = { "dport": "spaz", "kazman": "geek" };
+        var username = login_form["username_textbox"].value;
+        var password = login_form["password_textbox"].value;
+        if (passwords[username] == password) {
+            document.write(`Thank you ${username} for loggin in!`);
+        }
+        else { alert('incorrect login!'); }
+    }
+</script>
+<form action="javascript:checkLogin();" name='login_form'>
+    <label for="username_textbox">Username:</label><input type='text' name='username_textbox'>
+    <br>
+    <label for="password_textbox">Password:</label><input type='password' name='password_textbox'>
+    <br>
+    <input type='SUBMIT' name='submit_button' value='Login'>
+</form>
