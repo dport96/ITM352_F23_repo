@@ -1,7 +1,7 @@
 const express = require('express');
-const { products } = require('./public/product_data');
 const app = express();
-require(__dirname + "/public/product_data.js");
+var product_data = require(__dirname + "/product_data.json");
+const qs = require('querystring');
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -11,13 +11,21 @@ app.all('*', function (request, response, next) {
     next(); 
 });
 
+app.get("/product_data.js", function (request, response, next) {
+    response.type('.js');
+    let products_str = `var products = ${JSON.stringify(product_data)};`;
+    response.send(products_str);
+ });
+ 
 app.post("/process_form", function (request, response) {
     console.log('in process+form', request.body);
 
-    for(let i in products) { 
+    let errors = {}; // assume no errors
+    /*
+    for(let i in product_data) { 
         let qty = request.body['quantity' + i];
         // validate quantities
-        let errors = {}; // assume no errors
+        
         // check if nonnegint
         if(isNonNegInt(qty)===false) {  
             errors['quntity'+i] = isNonNegInt(qty, true);
@@ -25,14 +33,17 @@ app.post("/process_form", function (request, response) {
         // check iquanty is available
 
 }
-
+*/
+    var qstr = qs.stringify(request.body);
     // if valid, create invoice
     if (Object.entries(errors).length === 0) {
-        response.send(`Thank you for purchasing things!`);
+        // reducce quantity available by quanties purchased
+
+        response.redirect(`invoice.html?${qstr}`);
     } 
     // not valid, send back to display product
     else {
-        response.send(`${errors} is not valid. Hit the back button and submit again.`);
+        response.redirect(`product_display.html`);
     }
  });
 

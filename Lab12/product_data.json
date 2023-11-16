@@ -1,4 +1,3 @@
- products = 
 [
     {
     "brand": "HTC",
@@ -30,7 +29,4 @@
     "image": "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg",
     "quantity_avail": 15
     }
-];
-if(typeof module != 'undefined') {
-    module.exports.products = products;
-  }
+]
