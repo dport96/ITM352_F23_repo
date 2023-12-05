@@ -1,0 +1,163 @@
+<script>
+  let params = (new URL(document.location)).searchParams;
+
+  products = {};
+  async function display_products(the_products) {
+    products = the_products;
+    for (i = 0; i < products.length; i++) {
+      products_main_display.innerHTML +=
+        `
+        <section class="item">
+            <h2>${products[i].brand}</h2>
+            <p>$${products[i].price}</p>
+            <div>
+            <label id="quantity${i}_label"}">Quantity</label>
+            <input type="text" placeholder="0" name="quantity${i}" 
+            onkeyup="checkQuantityTextbox(this);">
+            </div>
+            <img src="${products[i].image}">
+        </section>
+    `;
+    }
+  }
+  // use fetch to retrieve it, and report any errors that occur in the fetch operation
+  // once the products have been successfully loaded and formatted as a JSON object
+  async function fetchProducts() {
+    await fetch('products').then(function (response) {
+      if (response.ok) {
+        response.json().then(function (json) {
+          display_selections(json);;
+        });
+      } else {
+        console.log('Network request for products.json failed with response ' + response.status + ': ' + response.statusText);
+      }
+    });
+  }
+
+  function display_selections(products) {
+
+    // form was submitted so process the invoice
+    if (params.has('purchase_submit')) {
+      subtotal = 0;
+      for (i = 0; i < products.length; i++) {
+        a_qty = params.get(`quantity${i}`);
+        if (a_qty > 0) {
+          // product row
+          extended_price = a_qty * products[i].price
+          subtotal += extended_price;
+          invoice_row = invoice_table.insertRow(1)
+          invoice_row.innerHTML = (`
+      <tr>
+        <td width="43%">${products[i].brand}</td>
+        <td align="center" width="11%">${a_qty}</td>
+        <td width="13%">\$${products[i].price}</td>
+        <td width="54%">\$${extended_price}</td>
+      </tr>
+      `);
+        }
+      }
+      subtotal_span.innerHTML = subtotal;
+
+      // Compute tax
+      var tax_rate = 0.0575;
+      tax_rate_span.innerHTML = 100 * tax_rate;
+
+      var tax = tax_rate * subtotal;
+      tax_span.innerHTML = tax.toFixed(2);
+
+      // Compute shipping
+      if (subtotal <= 50) {
+        shipping = 2;
+      }
+      else if (subtotal <= 100) {
+        shipping = 5;
+      }
+      else {
+        shipping = 0.05 * subtotal; // 5% of subtotal
+      }
+      shipping_span.innerHTML = shipping.toFixed(2);
+
+      // Compute grand total
+      var total = subtotal + tax + shipping;
+      total_span.innerHTML = total.toFixed(2);
+
+    } else {
+      document.write('no form submitted');
+    }
+  }
+
+  window.onload = function () {
+    console.log(params);
+    if(params.has("username")) { // Greet the user (personalization). 
+      alert(`Thank you for your purchase ${params.get("username")}. Please buy again soon!`);
+    } else { // this is security, must have a username or get bounced to login
+      alert("You must login or register before checking out!");
+      window.location = "login" + window.location.search;
+    }
+    fetchProducts();
+  }
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link href="products-style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <table id="invoice_table" border="2">
+    <tbody>
+      <tr>
+        <th style="text-align: center;" width="43%">Item</th>
+        <th style="text-align: center;" width="11%">quantity</th>
+        <th style="text-align: center;" width="13%">price</th>
+        <th style="text-align: center;" width="54%">extended price</th>
+      </tr>
+      <tr>
+        <td colspan="4" width="100%">&nbsp;</td>
+      </tr>
+      <script>// invoice rows</script>
+      <tr>
+        <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+        <td width="54%">$
+          <span id=subtotal_span></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @
+            <span id="tax_rate_span"></span>
+        </td>
+        <td width="54%">$
+          <span id="tax_span"></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center;" colspan="3" width="67%">Shipping</span></td>
+        <td width="54%">$
+          <span id="shipping_span"></span>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+        <td width="54%"><strong>$
+            <span id="total_span">document.write(total.toFixed(2));</span></strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <br><b>
+      OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $2 shipping
+      A subtotal $50 - $99.99 will be $5 shipping
+      Subtotals over $100 will be charged 5% of the subtotal amount
+    </b> </div>
+</body>
+
+</html>

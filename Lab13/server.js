@@ -35,7 +35,7 @@ app.get("/login", function (request, response) {
 
 app.post("/login", function (request, response) {
     // Process login form POST and redirect to logged in page if ok, back to login page if not
-    let the_username = request.body.username;
+    let the_username = request.body.username.toLowerCase();
     let the_password = request.body.password;
     // chexk if the_username is in user_data
     if (typeof user_reg_data[the_username] !== 'undefined') {
@@ -69,7 +69,12 @@ app.get("/register", function (request, response) {
 app.post("/register", function (request, response) {
     // process a simple register form
     // make a new user
-    let username = request.body.username;
+    let errors = {};
+    let username = request.body.username.toLowerCase();
+    // check if usrname is taken
+    if(typeof user_reg_data[username] !== 'undefined') {
+        errors['username_taken'] = 'That username is taken!';
+    }
     user_reg_data[username] = {};
     user_reg_data[username].password = request.body.password;
     user_reg_data[username].email = request.body.email;
