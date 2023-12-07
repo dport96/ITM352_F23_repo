@@ -1,6 +1,26 @@
 <script>
+  function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
   let params = (new URL(document.location)).searchParams;
-
+// if user does not have username cookie, send them to login 
+if(getCookie('username') === '') {
+  location.href = "./login.html";
+}
+let username = getCookie('username');
+alert(`welcome ${username}`);
   products = {};
   async function display_products(the_products) {
     products = the_products;
