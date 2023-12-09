@@ -1,5 +1,8 @@
 <script src="./product_data.js" type="text/javascript"></script>
 <script>
+    let prod_key = "Apple";
+    let products = all_products[prod_key];
+    
     function isNonNegInt(q, return_errors = false) {
         errors = []; // assume no errors at first
         if(q == '') q =0; // handle blank inputs as if they are 0

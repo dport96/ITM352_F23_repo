@@ -1,4 +1,16 @@
+<script src="./product_data.js" type="text/javascript"></script>
+
 <script>
+    let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+    let prod_key = "Others"; // default to Others page if producxct_type not specified in qstr
+    if(params.has("product_type")) {
+        let tmp = params.get("product_type");
+        if(typeof all_products[tmp] != 'undefined' ) {
+             prod_key = tmp;
+        }
+    } 
+    let products =  all_products[prod_key];
+
     function isNonNegInt(q, return_errors = false) {
         errors = []; // assume no errors at first
         if (q == '') q = 0; // handle blank inputs as if they are 0
@@ -15,25 +27,37 @@
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
 
-    var products = {};
+   // var products = {};
     async function display_products(the_products) {
-        products = the_products;
-        for (i = 0; i < products.length; i++) {
+      //  products = the_products;
+        for (i = 0; i < the_products.length; i++) {
             products_main_display.innerHTML +=
                 `
             <section class="item">
-                <h2>${products[i].brand}</h2>
-                <p>$${products[i].price}</p>
+                <h2>${the_products[i].model}</h2>
+                <p>$${the_products[i].price}</p>
                 <div>
                 <label id="quantity${i}_label"}">Quantity</label>
                 <input type="text" placeholder="0" name="quantity${i}" 
                 onkeyup="checkQuantityTextbox(this);">
                 </div>
-                <img src="${products[i].image}">
+                <img src="${the_products[i].image}">
             </section>
         `;
         }
     }
+
+    // This function makes a navigation bar from a products_data object
+
+function nav_bar(this_product_key, products_data) {
+    // This makes a navigation bar to other product pages
+    for (let products_key in products_data) {
+        if (products_key == this_product_key) continue;
+        document.write(`<a href='./products_display.html?product_type=${products_key}'>${products_key}<a>&nbsp&nbsp&nbsp;`);
+    }
+}
+
+    /*
     // use fetch to retrieve it, and report any errors that occur in the fetch operation
     // once the products have been successfully loaded and formatted as a JSON object
     async function fetchProducts() {
@@ -48,9 +72,8 @@
             }
         });
     }
-
+*/
     function redisplay() {
-            let params = (new URL(document.location)).searchParams; // get the query string which has the form data
             // form was submitted so check that quantities are valid then redirect to invoice if ok.
             if (params.has('purchase_submit')) {
                 has_errors = false; // assume quantities are valid from the start
@@ -77,7 +100,9 @@
         }
 
     window.onload = function () {
-        fetchProducts();
+      //  fetchProducts();
+      display_products(products);
+      redisplay();
     }
 </script>
 
@@ -95,9 +120,15 @@
 </head>
 
 <body>
+    <script>
+        nav_bar(prod_key, all_products);
+    </script>
+    
     <form name="product_selection_form" action="purchase" method="GET">
         <header>
-            <h1>Port's Used Smart Phone Store</h1>
+            <script>
+                document.write(`<h1>Port's Used ${prod_key} Smart Phone Store</h1>`);
+            </script>
         </header>
         <div>
             <main id="products_main_display">
@@ -108,6 +139,9 @@
                 Your One Stop For Used Phones
             </h1>
             <input type="submit" value="Purchase!" name="purchase_submit">
+            <script>
+               document.write('<input type="hidden" name="product_type" value="' + prod_key + '">');
+            </script>
         </footer>
     </form>
 </body>

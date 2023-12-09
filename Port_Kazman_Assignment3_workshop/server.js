@@ -7,7 +7,7 @@ var app = express();
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-var products = require('./product_data.json');
+var all_products = require('./product_data.json');
 
 var user_quantity_data; // make a global variable to hold the product selections until we get to the invoice
 
@@ -32,10 +32,18 @@ app.all('*', function (req, res, next) {
 });
 
 app.get('/products', function (req, res, next) {
-    res.json(products);
+    res.json(all_products);
 });
 
+
+app.get("/product_data.js", function (request, response, next) {
+    response.type('.js');
+    let products_str = `var all_products = ${JSON.stringify(all_products)};`;
+    response.send(products_str);
+ });
+
 app.get('/purchase', function (req, res, next) {
+    let products = all_products[req.query.product_type];
     user_quantity_data = req.query; // save for later
     if (typeof req.query['purchase_submit'] != 'undefined') {
         console.log(Date.now() + ': Purchase made from ip ' + req.ip + ' data: ' + JSON.stringify(req.query));
